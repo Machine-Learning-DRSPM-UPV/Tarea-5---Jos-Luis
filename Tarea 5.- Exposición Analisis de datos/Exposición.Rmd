@@ -1,0 +1,269 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+# Trabajando con Datasets Externos
+Manejo de datasets externos para saber las ventajas que hay al trabajar con estos hecho de manera manual o utilizando otros datasets ya formulados. Dos de los formatos que puede manejar Rstudio son:
+  1. HTML(Hypertext Markup Language)
+  2. CSV(Comma Separated Value)
+
+Un ejemplo de uso de un dataset creado manualmente usando una imagen del precio del Grande Latte de Starbucks http://www.coventryleague.com/blogentary/the-starbucks-latte-index
+```{r}
+library(readr)
+library(rpart)
+LatteIndexFrame <- read_csv("LatteIndexFrame.csv")
+Mids <- barplot(LatteIndexFrame$price, col="transparent",horiz = TRUE, xlim = c(0,11))
+text(8.5,Mids,LatteIndexFrame$city,cex = 0.8)
+text(10.5,Mids,format(LatteIndexFrame$price,nsmall=2), cex = 0.8)
+```
+
+## Administración de archivos en R
+Para poder usar un archivo el programa tiene que encontrarse en el directorio en donde este se encuentra, a veces no solo es necesario eso si no que hay que crear o movernos entre directorios para eso estan los siguientes comandos.
+```{r}
+getwd() #Obtenemos la dirección actual donde se encuentra el programa.
+setwd("..") #Para movernos a una carpeta dentro de nuestro directorio o atras
+getwd()
+```
+```{r}
+setwd("../Tarea 6.- Exposición Analisis de datos")
+getwd()
+```
+```{r}
+list.files() #Para obtener un listado de los archivos encontrados en el directorio actual.
+list.files(pattern = "Expo") #Obtener un listado de los archivos con caracteres comunes.
+```
+## Colocar datos Manualmente
+### Colocar datos a mano
+Esta es una de las formas de hacer nuestro propio dataset, debido a que es una forma sencilla de trabajar y colocar datos como se hizo con el dataset del precio del latte grande de starbucks y puede servir como guía para empezar a trabajar.
+
+### Es malo colocar los datos pero a veces hay excepciones
+1. Es muy difícil colocar datos cuando es un conjunto muy largo de estos.
+2. Podemos cometer un error al colocar los datos el cual cause que no sirva.
+
+## Interactuando con el Internet
+El internet nos ayuda a encontrar dataset para probar algunas metodos en nuestro programa en R, si bien R ya tiene un conjunto de dataset para empezar a programar es bueno saber como introducir nuevos datasets y trabajar con ellos.
+
+### Previa vista de 3 ejemplos de datasets en Internet
+* Distancia recorrida en millas de un automovil.
+```{r}
+browseURL("http://archive.ics.uci.edu/ml") #Nos abrirá una pestaña en el navegador a la dirección entre comillas.
+URL <- "http://archive.ics.uci.edu/ml/machine-learning-databases/auto-mpg/auto-mpg.data"
+download.file(URL, "UCIautoMpg.txt") #Nos descargará el dataset seleccionado
+```
+* Cuentas de bancos no reclamadas en Canada
+```{r}
+SocrataURL <- "https://opendata.socrata.com/"
+browseURL(SocrataURL)
+DownloadFile <- "C:/Users/Ron/Downloads/Unclaimed_bank_accounts.csv"
+file.copy(DownloadFile, "Unclaimed_bank_accounts.csv")
+```
+* Indice de economia de la BigMac
+```{r}
+Bigmac <- "http://www.economist.com/content/big-mac-index"
+browseURL(Bigmac)
+```
+
+## Trabajando con Archivos CSV
+Los archivos CSV son uno de los mas usados para la lectura de datos debido a su simplicidad al manejarlos y el gran numero de programas que pueden utilizarlos.
+
+### Leer y escribir en un archivos CSV
+La forma mas sencilla de leer y escribir en un archivos CSV es usando las funciones:
+1. read.csv("Nombre del archivo CSV")
+```{r}
+WBCD <- read.csv("Dataset.csv")
+head(WBCD)
+```
+2. write.csv("Los datos", "El nombre del archivo CSV")
+```{r}
+write.csv(WBCD,"WBCDDataset.csv")
+```
+
+### Hojas de calculo vs archivos CSV no son lo mismo
+1. Un archivo CSV es un simple archivo de datos, puede ser leido por Microsoft Excel y por muchos otros programas.
+2. El programa de hoja de calculo de Microsoft Excel es un software que puede hacer muchas cosas, incluyendo leer y escribir archivos CSV, realizar computación simple de análisis de datos y generar gráficas.
+3. Un archivo de datos de Microsoft Excel contiene los datos sobre los cuales una hoja de calculo se basa.
+
+```{r}
+library(xlsx)
+BigMacJan2013 <- read.xlsx("BMfile2000-Jul2015.xls", sheetName = "Jan2013")
+head(BigMacJan2013)
+```
+
+### Problemas potenciales al usar archivos CSV en R.
+* Cambio de nombres
+Debido a que R solo acepta variables con "." y "_" al momento de querer leer un archivo CSV las variables que contengan caracteres no legibles se cambiaran por un punto.
+```{r}
+colnames(WBCD)
+```
+
+* Problemas de comas incrustadas
+Hay ocaciones en que al guardar un archivo CSV con algunas comas hace que en veces de separar en 2 columnas nos agrega todo en una sola y esto hace que ocurra el siguiente error.
+
+```{r}
+library(sqldf)
+unclaimedLines <- readLines("Unclaimed_Bank_Accounts-2.csv")
+line8 <- unclaimedLines[5]
+strsplit(line8, split = ",")
+```
+
+## Trabajando con otro tipo de archivos
+Los archivos de texto (.txt) son leidos por la funcion "readLines()", esta funcion es usada cuando se quiere leer lineas en especifico de archivo y los archivos txt son perfectos para esto.
+
+``` {r}
+autoMpgRecords <- readLines("UCIautoMpg.txt")
+x <- autoMpgRecords[1]
+nchar(x)  #Numero de caracteres
+substr(x, 1, 56) #Limite de comienzo (1) y fin (56) de lectura de caracteres
+substr(x, 57, 84)
+```
+```{r}
+autoMpgNames <- readLines("auto-mpg.names")
+autoMpgNames[32:44]
+```
+### Guardando y Abriendo objetos de R
+El guardado de objetos de R nos ayuda a no perder estos objetos que podríamos utilizar en otras secciones de R ya que al momento de cerrar el programa estos objetos desaparecen. Para guardas estas funciones se utilizan la siguiente función:
+1. saveRDS("objeto", "nombre del archivo.rds")
+2. readRDS("Nombre del archivo.rds")
+
+```{r}
+linearModel <- lm(mpg ~ ., data = mtcars)
+names(linearModel)
+saveRDS(linearModel, "linearModelExample.rds")
+recoveredLinearModel <- readRDS("linearModelExample.rds")
+identical(recoveredLinearModel, linearModel)
+```
+
+### Archivos de Gráficas
+Función para guardar gráficas a archivos pdf.
+```{r}
+pdf("AutoMpgBoxplotEx.pdf")
+  boxplot(Area ~ AreasError, data = WBCD,
+          xlab = "Area", ylab = "AreasError",
+          las = 1, varwidth = TRUE)
+dev.off()
+```
+También se pueden guardar gráficas en forma de imagenes.
+```{r}
+png("AutoMpgBoxplotEx.png")
+  boxplot(Area ~ AreasError, data = WBCD,
+          xlab = "Area", ylab = "AreasError",
+          las = 1, varwidth = TRUE)
+dev.off()
+```
+
+## Fucionando Datos de diferentes fuentes
+En ciertas ocaciones es útil juntar un dos dataset diferentes para ver información de utilidad y para esto se usa la funcion merge("Primer dataset","Segundo dataset", by.x = "Atributo del primero", by.y = "Atributo del segundo")
+```{r}
+FlawedMergeFrame <- merge(LatteIndexFrame, BigMacJan2013, by.x="country", by.y="Country")
+```
+La forma de ordenar mejor la union es la siguiente:
+```{r}
+LatteSubset <- data.frame(country = as.character(LatteIndexFrame$country),
+                          city = as.character(LatteIndexFrame$city),
+                          GrandeLatteIndex = LatteIndexFrame$price,
+                          stringsAsFactors = FALSE)
+BigMacSubset <- data.frame(country = as.character(BigMacJan2013$Country),
+                          BigMacIndex = BigMacJan2013$dollar_price,
+                          stringsAsFactors = FALSE)
+BetterMerge <- merge(LatteSubset, BigMacSubset)
+str(BetterMerge, vec.len = 2)
+```
+Para observar cuales son las diferencias que hay entre los dos datasets se usa lo siguiente:
+```{r}
+setdiff(LatteSubset$country, BetterMerge$country)
+```
+Para cambiar el string usamos el siguiente codigo:
+```{r}
+EnglandIndex <- which(LatteSubset$country == "England")
+LatteSubset$country[EnglandIndex] <- "Britain"
+FinalMerge <- merge(LatteSubset, BigMacSubset)
+str(FinalMerge, vec.len=2)
+```
+
+## Una pequeña introducción a las bases de datos
+### Bases de datos relacionales, consultas y SQL
+1. Las bases de datos son diseñadas: esto involucra decidir que variables son incluidas y como seran oraganizadas.
+2. El diseño de bases de datos son implementados en un entorno especifico de un software, en el cual implique crear y poblar la tabla de datos, proporcionando aceso a los datos.
+3. Correr el Consultador SQL para volver a extraer de la base de datos un dato especifico que se necesite.
+
+### Una Introducción a el paquete SQLDF 
+Este paquete no proporciona un consultor SQL forma de utilizarlo es la siguiente:
+```{r}
+library(sqldf)
+strangeCars <- sqldf("SELECT city , price, country
+                      FROM LatteIndexFrame
+                      WHERE price > 3 AND price < 5") # o cambiar Where por GROUP BY
+strangeCars
+```
+
+También cuenta con unión entre bases de datos usando el siguiente programa:
+```{r}
+query <- "SELECT Lsub.country, Lsub.city, Lsub.GrandeLatteIndex, Msub.BigMacIndex
+FROM LatteSubset AS Lsub INNER JOIN BigMacSubset AS Msub
+ON Lsub.country = Msub.country"
+IndexFrame <- sqldf(query)
+head(IndexFrame)
+```
+```{r}
+library(RSQLite)
+conn <- dbConnect(SQLite(), "EconomicIndexDatabase.db")
+dbWriteTable(conn, "GrandeLatteTable", LatteSubset)
+dbWriteTable(conn, "BigMacTable", BigMacSubset)
+```
+```{r}
+dbListTables(conn)
+dbListFields(conn, "GRANDELATTETABLE")
+dbListFields(conn, "bigmactable")
+dbGetQuery(conn, "SELECT COUNT(*) AS 'GrandeLatteRowCount' FROM GrandeLatteTable")
+dbGetQuery(conn, "SELECT COUNT(*) AS 'BigMacRowCount' FROM BigMacTable")
+```
+```{r}
+query <- "SELECT M.country, M.BigMacIndex FROM BigMacTable AS M
+WHERE M.country IN (SELECT country FROM GrandeLatteTable)"
+BigMacBoth <- dbGetQuery(conn, query)
+```
+```{r}
+query <- "SELECT M.country, M.BigMacIndex FROM BigMacTable AS M
+WHERE M.country NOT IN (SELECT country FROM GrandeLatteTable)"
+BigMacOnly <- dbGetQuery(conn, query)
+dbDisconnect(conn)
+```
+
+# Model de Regresión Lineal
+
+Los modelos predictivos son modelos matemáticos que nos permiten predecir algunas variables de interes desde una o mas variables que se cree se relacionan.
+
+## Modelando los datos de Witeside
+
+```{r}
+library(MASS)
+summary(whiteside)
+par(mfrow=c(1,1))
+x <- whiteside$Temp
+y <- whiteside$Gas
+plot(x, y, xlab = "Temperatura", ylab = "Gas")
+olsModel <- lm(y ~ x)
+abline(olsModel, lty = 2,lwd = 3)
+```
+
+### Describiendo lineas en el plano
+```{r}
+plot(0,0)
+abline(a=1, b=2, lty=2, lwd=3)
+plot(0,0)
+abline(a=0,b=0, lty=2, lwd=3)
+plot(0,0)
+abline(v=0, lty=2, lwd=3)
+```
+
+
+```{r}
+linearModelA <- lm(Gas ~ Temp, data = whiteside)
+names(linearModelA)
+plot(0,0)
+abline(linearModelA, lty = 2, lwd = 2)
+linearModelA$coefficients
+```
+
+

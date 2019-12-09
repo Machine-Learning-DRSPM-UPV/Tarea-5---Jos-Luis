@@ -1,0 +1,1023 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\providecommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{}
+    \pretitle{\vspace{\droptitle}}
+  \posttitle{}
+    \author{}
+    \preauthor{}\postauthor{}
+    \date{}
+    \predate{}\postdate{}
+  
+
+\begin{document}
+
+\hypertarget{trabajando-con-datasets-externos}{%
+\section{Trabajando con Datasets
+Externos}\label{trabajando-con-datasets-externos}}
+
+Manejo de datasets externos para saber las ventajas que hay al trabajar
+con estos hecho de manera manual o utilizando otros datasets ya
+formulados. Dos de los formatos que puede manejar Rstudio son: 1.
+HTML(Hypertext Markup Language) 2. CSV(Comma Separated Value)
+
+Un ejemplo de uso de un dataset creado manualmente usando una imagen del
+precio del Grande Latte de Starbucks
+\url{http://www.coventryleague.com/blogentary/the-starbucks-latte-index}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(readr)}
+\KeywordTok{library}\NormalTok{(rpart)}
+\NormalTok{LatteIndexFrame <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"LatteIndexFrame.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Parsed with column specification:
+## cols(
+##   city = col_character(),
+##   price = col_double(),
+##   country = col_character()
+## )
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Mids <-}\StringTok{ }\KeywordTok{barplot}\NormalTok{(LatteIndexFrame}\OperatorTok{$}\NormalTok{price, }\DataTypeTok{col=}\StringTok{"transparent"}\NormalTok{,}\DataTypeTok{horiz =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{xlim =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{11}\NormalTok{))}
+\KeywordTok{text}\NormalTok{(}\FloatTok{8.5}\NormalTok{,Mids,LatteIndexFrame}\OperatorTok{$}\NormalTok{city,}\DataTypeTok{cex =} \FloatTok{0.8}\NormalTok{)}
+\KeywordTok{text}\NormalTok{(}\FloatTok{10.5}\NormalTok{,Mids,}\KeywordTok{format}\NormalTok{(LatteIndexFrame}\OperatorTok{$}\NormalTok{price,}\DataTypeTok{nsmall=}\DecValTok{2}\NormalTok{), }\DataTypeTok{cex =} \FloatTok{0.8}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Exposición_files/figure-html/unnamed-chunk-1-1.png}
+
+\hypertarget{administraciuxf3n-de-archivos-en-r}{%
+\subsection{Administración de archivos en
+R}\label{administraciuxf3n-de-archivos-en-r}}
+
+Para poder usar un archivo el programa tiene que encontrarse en el
+directorio en donde este se encuentra, a veces no solo es necesario eso
+si no que hay que crear o movernos entre directorios para eso estan los
+siguientes comandos.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{getwd}\NormalTok{() }\CommentTok{#Obtenemos la dirección actual donde se encuentra el programa.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "/home/jose/Escritorio/Maestria/Tercer Cuatrimestre/Said/Tarea 6.- Exposición Analisis de datos"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{setwd}\NormalTok{(}\StringTok{".."}\NormalTok{) }\CommentTok{#Para movernos a una carpeta dentro de nuestro directorio o atras}
+\KeywordTok{getwd}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "/home/jose/Escritorio/Maestria/Tercer Cuatrimestre/Said"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{setwd}\NormalTok{(}\StringTok{"../Tarea 6.- Exposición Analisis de datos"}\NormalTok{)}
+\KeywordTok{getwd}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "/home/jose/Escritorio/Maestria/Tercer Cuatrimestre/Said/Tarea 6.- Exposición Analisis de datos"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{list.files}\NormalTok{() }\CommentTok{#Para obtener un listado de los archivos encontrados en el directorio actual.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "(Chapman & Hall_CRC Data Mining and Knowledge Discovery Series) Ronald K. Pearson - Exploratory Data Analysis Using R-Chapman and Hall_CRC (2018).pdf"
+##  [2] "auto-mpg.names"                                                                                                                                       
+##  [3] "AutoMpgBoxplotEx.pdf"                                                                                                                                 
+##  [4] "AutoMpgBoxplotEx.png"                                                                                                                                 
+##  [5] "BMfile2000-Jul2015.xls"                                                                                                                               
+##  [6] "Dataset.csv"                                                                                                                                          
+##  [7] "Exposición_files"                                                                                                                                     
+##  [8] "Exposición.html"                                                                                                                                      
+##  [9] "Exposición.log"                                                                                                                                       
+## [10] "Exposición.Rmd"                                                                                                                                       
+## [11] "Exposición.tex"                                                                                                                                       
+## [12] "holamundo.csv"                                                                                                                                        
+## [13] "LatteIndexFrame.csv"                                                                                                                                  
+## [14] "linearModelExample.rds"                                                                                                                               
+## [15] "UCIautoMpg.txt"                                                                                                                                       
+## [16] "Unclaimed_Bank_Accounts-2.csv"                                                                                                                        
+## [17] "Untitled.ipynb"                                                                                                                                       
+## [18] "WBCDDataset.csv"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{list.files}\NormalTok{(}\DataTypeTok{pattern =} \StringTok{"Expo"}\NormalTok{) }\CommentTok{#Obtener un listado de los archivos con caracteres comunes.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Exposición_files" "Exposición.html"  "Exposición.log"  
+## [4] "Exposición.Rmd"   "Exposición.tex"
+\end{verbatim}
+
+\hypertarget{colocar-datos-manualmente}{%
+\subsection{Colocar datos Manualmente}\label{colocar-datos-manualmente}}
+
+\hypertarget{colocar-datos-a-mano}{%
+\subsubsection{Colocar datos a mano}\label{colocar-datos-a-mano}}
+
+Esta es una de las formas de hacer nuestro propio dataset, debido a que
+es una forma sencilla de trabajar y colocar datos como se hizo con el
+dataset del precio del latte grande de starbucks y puede servir como
+guía para empezar a trabajar.
+
+\hypertarget{es-malo-colocar-los-datos-pero-a-veces-hay-excepciones}{%
+\subsubsection{Es malo colocar los datos pero a veces hay
+excepciones}\label{es-malo-colocar-los-datos-pero-a-veces-hay-excepciones}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Es muy difícil colocar datos cuando es un conjunto muy largo de estos.
+\item
+  Podemos cometer un error al colocar los datos el cual cause que no
+  sirva.
+\end{enumerate}
+
+\hypertarget{interactuando-con-el-internet}{%
+\subsection{Interactuando con el
+Internet}\label{interactuando-con-el-internet}}
+
+El internet nos ayuda a encontrar dataset para probar algunas metodos en
+nuestro programa en R, si bien R ya tiene un conjunto de dataset para
+empezar a programar es bueno saber como introducir nuevos datasets y
+trabajar con ellos.
+
+\hypertarget{previa-vista-de-3-ejemplos-de-datasets-en-internet}{%
+\subsubsection{Previa vista de 3 ejemplos de datasets en
+Internet}\label{previa-vista-de-3-ejemplos-de-datasets-en-internet}}
+
+\begin{itemize}
+\tightlist
+\item
+  Distancia recorrida en millas de un automovil.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{browseURL}\NormalTok{(}\StringTok{"http://archive.ics.uci.edu/ml"}\NormalTok{) }\CommentTok{#Nos abrirá una pestaña en el navegador a la dirección entre comillas.}
+\NormalTok{URL <-}\StringTok{ "http://archive.ics.uci.edu/ml/machine-learning-databases/auto-mpg/auto-mpg.data"}
+\KeywordTok{download.file}\NormalTok{(URL, }\StringTok{"UCIautoMpg.txt"}\NormalTok{) }\CommentTok{#Nos descargará el dataset seleccionado}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  Cuentas de bancos no reclamadas en Canada
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{SocrataURL <-}\StringTok{ "https://opendata.socrata.com/"}
+\KeywordTok{browseURL}\NormalTok{(SocrataURL)}
+\NormalTok{DownloadFile <-}\StringTok{ "C:/Users/Ron/Downloads/Unclaimed_bank_accounts.csv"}
+\KeywordTok{file.copy}\NormalTok{(DownloadFile, }\StringTok{"Unclaimed_bank_accounts.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] FALSE
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Indice de economia de la BigMac
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Bigmac <-}\StringTok{ "http://www.economist.com/content/big-mac-index"}
+\KeywordTok{browseURL}\NormalTok{(Bigmac)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{trabajando-con-archivos-csv}{%
+\subsection{Trabajando con Archivos
+CSV}\label{trabajando-con-archivos-csv}}
+
+Los archivos CSV son uno de los mas usados para la lectura de datos
+debido a su simplicidad al manejarlos y el gran numero de programas que
+pueden utilizarlos.
+
+\hypertarget{leer-y-escribir-en-un-archivos-csv}{%
+\subsubsection{Leer y escribir en un archivos
+CSV}\label{leer-y-escribir-en-un-archivos-csv}}
+
+La forma mas sencilla de leer y escribir en un archivos CSV es usando
+las funciones: 1. read.csv(``Nombre del archivo CSV'')
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{WBCD <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"Dataset.csv"}\NormalTok{)}
+\KeywordTok{head}\NormalTok{(WBCD)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         ID MB Radio Textura Perimetro   Area Smoothness Compactness
+## 1   842302  M 17.99   10.38    122.80 1001.0    0.11840     0.27760
+## 2   842517  M 20.57   17.77    132.90 1326.0    0.08474     0.07864
+## 3 84300903  M 19.69   21.25    130.00 1203.0    0.10960     0.15990
+## 4 84348301  M 11.42   20.38     77.58  386.1    0.14250     0.28390
+## 5 84358402  M 20.29   14.34    135.10 1297.0    0.10030     0.13280
+## 6   843786  M 12.45   15.70     82.57  477.1    0.12780     0.17000
+##   Concavity Concave.Points Symmetry Fractal.Dimention Radius.Error
+## 1    0.3001        0.14710   0.2419           0.07871       1.0950
+## 2    0.0869        0.07017   0.1812           0.05667       0.5435
+## 3    0.1974        0.12790   0.2069           0.05999       0.7456
+## 4    0.2414        0.10520   0.2597           0.09744       0.4956
+## 5    0.1980        0.10430   0.1809           0.05883       0.7572
+## 6    0.1578        0.08089   0.2087           0.07613       0.3345
+##   Texture.Error Perimeter.Error AreasError Smoothness.Error
+## 1        0.9053           8.589     153.40         0.006399
+## 2        0.7339           3.398      74.08         0.005225
+## 3        0.7869           4.585      94.03         0.006150
+## 4        1.1560           3.445      27.23         0.009110
+## 5        0.7813           5.438      94.44         0.011490
+## 6        0.8902           2.217      27.19         0.007510
+##   Compactness.Error Concavity.Error Concave.Points.Error Symmetry.Error
+## 1           0.04904         0.05373              0.01587        0.03003
+## 2           0.01308         0.01860              0.01340        0.01389
+## 3           0.04006         0.03832              0.02058        0.02250
+## 4           0.07458         0.05661              0.01867        0.05963
+## 5           0.02461         0.05688              0.01885        0.01756
+## 6           0.03345         0.03672              0.01137        0.02165
+##   Fractal.Dimention.Error Worst.Radius Worst.Texture Worst.Perimeter
+## 1                0.006193        25.38         17.33          184.60
+## 2                0.003532        24.99         23.41          158.80
+## 3                0.004571        23.57         25.53          152.50
+## 4                0.009208        14.91         26.50           98.87
+## 5                0.005115        22.54         16.67          152.20
+## 6                0.005082        15.47         23.75          103.40
+##   Worst.Area Worst.Smoothness Worst.Compactness Worst.Concavity
+## 1     2019.0           0.1622            0.6656          0.7119
+## 2     1956.0           0.1238            0.1866          0.2416
+## 3     1709.0           0.1444            0.4245          0.4504
+## 4      567.7           0.2098            0.8663          0.6869
+## 5     1575.0           0.1374            0.2050          0.4000
+## 6      741.6           0.1791            0.5249          0.5355
+##   Worst.Concave.Points Worst.Symmetry Worst.Fractal.Dimension
+## 1               0.2654         0.4601                 0.11890
+## 2               0.1860         0.2750                 0.08902
+## 3               0.2430         0.3613                 0.08758
+## 4               0.2575         0.6638                 0.17300
+## 5               0.1625         0.2364                 0.07678
+## 6               0.1741         0.3985                 0.12440
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  write.csv(``Los datos'', ``El nombre del archivo CSV'')
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{write.csv}\NormalTok{(WBCD,}\StringTok{"WBCDDataset.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{hojas-de-calculo-vs-archivos-csv-no-son-lo-mismo}{%
+\subsubsection{Hojas de calculo vs archivos CSV no son lo
+mismo}\label{hojas-de-calculo-vs-archivos-csv-no-son-lo-mismo}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Un archivo CSV es un simple archivo de datos, puede ser leido por
+  Microsoft Excel y por muchos otros programas.
+\item
+  El programa de hoja de calculo de Microsoft Excel es un software que
+  puede hacer muchas cosas, incluyendo leer y escribir archivos CSV,
+  realizar computación simple de análisis de datos y generar gráficas.
+\item
+  Un archivo de datos de Microsoft Excel contiene los datos sobre los
+  cuales una hoja de calculo se basa.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(xlsx)}
+\NormalTok{BigMacJan2013 <-}\StringTok{ }\KeywordTok{read.xlsx}\NormalTok{(}\StringTok{"BMfile2000-Jul2015.xls"}\NormalTok{, }\DataTypeTok{sheetName =} \StringTok{"Jan2013"}\NormalTok{)}
+\KeywordTok{head}\NormalTok{(BigMacJan2013)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     Country local_price   dollar_ex dollar_price  dollar_ppp
+## 1 Argentina       19.00   4.9765000     3.817944   4.3504186
+## 2 Australia        4.70   0.9590946     4.900455   1.0761562
+## 3    Brazil       11.25   1.9933500     5.643766   2.5759057
+## 4   Britain        2.69   0.6332120     4.248183   0.6159277
+## 5    Canada        5.41   1.0029000     5.394356   1.2387244
+## 6     Chile     2050.00 471.7500000     4.345522 469.3872683
+##   dollar_valuation dollar_adj_valuation euro_adj_valuation
+## 1       -12.580758            31.583765          9.1424392
+## 2        12.205424            -3.442778        -19.9104025
+## 3        29.224960            89.815124         57.4425667
+## 4        -2.729621             6.361586        -11.7781520
+## 5        23.514254            21.154868          0.4921682
+## 6        -0.500844            43.103425         18.6974462
+##   sterling_adj_valuation yen_adj_valuation yuan_adj_valuation
+## 1              23.713617          59.93016         37.3100903
+## 2              -9.217955          17.35804          0.7592459
+## 3              78.462105         130.70600         98.0755902
+## 4               0.000000          29.27450         10.9902803
+## 5              13.908482          47.25462         26.4273439
+## 6              34.544275          73.93144         49.3310684
+\end{verbatim}
+
+\hypertarget{problemas-potenciales-al-usar-archivos-csv-en-r.}{%
+\subsubsection{Problemas potenciales al usar archivos CSV en
+R.}\label{problemas-potenciales-al-usar-archivos-csv-en-r.}}
+
+\begin{itemize}
+\tightlist
+\item
+  Cambio de nombres Debido a que R solo acepta variables con ``.'' y
+  "\_" al momento de querer leer un archivo CSV las variables que
+  contengan caracteres no legibles se cambiaran por un punto.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{colnames}\NormalTok{(WBCD)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "ID"                      "MB"                     
+##  [3] "Radio"                   "Textura"                
+##  [5] "Perimetro"               "Area"                   
+##  [7] "Smoothness"              "Compactness"            
+##  [9] "Concavity"               "Concave.Points"         
+## [11] "Symmetry"                "Fractal.Dimention"      
+## [13] "Radius.Error"            "Texture.Error"          
+## [15] "Perimeter.Error"         "AreasError"             
+## [17] "Smoothness.Error"        "Compactness.Error"      
+## [19] "Concavity.Error"         "Concave.Points.Error"   
+## [21] "Symmetry.Error"          "Fractal.Dimention.Error"
+## [23] "Worst.Radius"            "Worst.Texture"          
+## [25] "Worst.Perimeter"         "Worst.Area"             
+## [27] "Worst.Smoothness"        "Worst.Compactness"      
+## [29] "Worst.Concavity"         "Worst.Concave.Points"   
+## [31] "Worst.Symmetry"          "Worst.Fractal.Dimension"
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Problemas de comas incrustadas Hay ocaciones en que al guardar un
+  archivo CSV con algunas comas hace que en veces de separar en 2
+  columnas nos agrega todo en una sola y esto hace que ocurra el
+  siguiente error.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(sqldf)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: gsubfn
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: proto
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: RSQLite
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{unclaimedLines <-}\StringTok{ }\KeywordTok{readLines}\NormalTok{(}\StringTok{"Unclaimed_Bank_Accounts-2.csv"}\NormalTok{)}
+\NormalTok{line8 <-}\StringTok{ }\NormalTok{unclaimedLines[}\DecValTok{5}\NormalTok{]}
+\KeywordTok{strsplit}\NormalTok{(line8, }\DataTypeTok{split =} \StringTok{","}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [[1]]
+## [1] "KELM"                   "SELMA       "          
+## [3] "67510.34"               "09/08/1995 12:00:00 AM"
+## [5] "BANK OF MONTREAL "
+\end{verbatim}
+
+\hypertarget{trabajando-con-otro-tipo-de-archivos}{%
+\subsection{Trabajando con otro tipo de
+archivos}\label{trabajando-con-otro-tipo-de-archivos}}
+
+Los archivos de texto (.txt) son leidos por la funcion ``readLines()'',
+esta funcion es usada cuando se quiere leer lineas en especifico de
+archivo y los archivos txt son perfectos para esto.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{autoMpgRecords <-}\StringTok{ }\KeywordTok{readLines}\NormalTok{(}\StringTok{"UCIautoMpg.txt"}\NormalTok{)}
+\NormalTok{x <-}\StringTok{ }\NormalTok{autoMpgRecords[}\DecValTok{1}\NormalTok{]}
+\KeywordTok{nchar}\NormalTok{(x)  }\CommentTok{#Numero de caracteres}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 84
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{substr}\NormalTok{(x, }\DecValTok{1}\NormalTok{, }\DecValTok{56}\NormalTok{) }\CommentTok{#Limite de comienzo (1) y fin (56) de lectura de caracteres}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "18.0   8   307.0      130.0      3504.      12.0   70  1"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{substr}\NormalTok{(x, }\DecValTok{57}\NormalTok{, }\DecValTok{84}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "\t\"chevrolet chevelle malibu\""
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{autoMpgNames <-}\StringTok{ }\KeywordTok{readLines}\NormalTok{(}\StringTok{"auto-mpg.names"}\NormalTok{)}
+\NormalTok{autoMpgNames[}\DecValTok{32}\OperatorTok{:}\DecValTok{44}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "7. Attribute Information:"                                    
+##  [2] ""                                                             
+##  [3] "    1. mpg:           continuous"                             
+##  [4] "    2. cylinders:     multi-valued discrete"                  
+##  [5] "    3. displacement:  continuous"                             
+##  [6] "    4. horsepower:    continuous"                             
+##  [7] "    5. weight:        continuous"                             
+##  [8] "    6. acceleration:  continuous"                             
+##  [9] "    7. model year:    multi-valued discrete"                  
+## [10] "    8. origin:        multi-valued discrete"                  
+## [11] "    9. car name:      string (unique for each instance)"      
+## [12] ""                                                             
+## [13] "8. Missing Attribute Values:  horsepower has 6 missing values"
+\end{verbatim}
+
+\hypertarget{guardando-y-abriendo-objetos-de-r}{%
+\subsubsection{Guardando y Abriendo objetos de
+R}\label{guardando-y-abriendo-objetos-de-r}}
+
+El guardado de objetos de R nos ayuda a no perder estos objetos que
+podríamos utilizar en otras secciones de R ya que al momento de cerrar
+el programa estos objetos desaparecen. Para guardas estas funciones se
+utilizan la siguiente función: 1. saveRDS(``objeto'', ``nombre del
+archivo.rds'') 2. readRDS(``Nombre del archivo.rds'')
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{linearModel <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(mpg }\OperatorTok{~}\StringTok{ }\NormalTok{., }\DataTypeTok{data =}\NormalTok{ mtcars)}
+\KeywordTok{names}\NormalTok{(linearModel)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "coefficients"  "residuals"     "effects"       "rank"         
+##  [5] "fitted.values" "assign"        "qr"            "df.residual"  
+##  [9] "xlevels"       "call"          "terms"         "model"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{saveRDS}\NormalTok{(linearModel, }\StringTok{"linearModelExample.rds"}\NormalTok{)}
+\NormalTok{recoveredLinearModel <-}\StringTok{ }\KeywordTok{readRDS}\NormalTok{(}\StringTok{"linearModelExample.rds"}\NormalTok{)}
+\KeywordTok{identical}\NormalTok{(recoveredLinearModel, linearModel)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+
+\hypertarget{archivos-de-gruxe1ficas}{%
+\subsubsection{Archivos de Gráficas}\label{archivos-de-gruxe1ficas}}
+
+Función para guardar gráficas a archivos pdf.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{pdf}\NormalTok{(}\StringTok{"AutoMpgBoxplotEx.pdf"}\NormalTok{)}
+  \KeywordTok{boxplot}\NormalTok{(Area }\OperatorTok{~}\StringTok{ }\NormalTok{AreasError, }\DataTypeTok{data =}\NormalTok{ WBCD,}
+          \DataTypeTok{xlab =} \StringTok{"Area"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"AreasError"}\NormalTok{,}
+          \DataTypeTok{las =} \DecValTok{1}\NormalTok{, }\DataTypeTok{varwidth =} \OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{dev.off}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## pdf 
+##   2
+\end{verbatim}
+
+También se pueden guardar gráficas en forma de imagenes.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{png}\NormalTok{(}\StringTok{"AutoMpgBoxplotEx.png"}\NormalTok{)}
+  \KeywordTok{boxplot}\NormalTok{(Area }\OperatorTok{~}\StringTok{ }\NormalTok{AreasError, }\DataTypeTok{data =}\NormalTok{ WBCD,}
+          \DataTypeTok{xlab =} \StringTok{"Area"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"AreasError"}\NormalTok{,}
+          \DataTypeTok{las =} \DecValTok{1}\NormalTok{, }\DataTypeTok{varwidth =} \OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{dev.off}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## pdf 
+##   2
+\end{verbatim}
+
+\hypertarget{fucionando-datos-de-diferentes-fuentes}{%
+\subsection{Fucionando Datos de diferentes
+fuentes}\label{fucionando-datos-de-diferentes-fuentes}}
+
+En ciertas ocaciones es útil juntar un dos dataset diferentes para ver
+información de utilidad y para esto se usa la funcion merge(``Primer
+dataset'',``Segundo dataset'', by.x = ``Atributo del primero'', by.y =
+``Atributo del segundo'')
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{FlawedMergeFrame <-}\StringTok{ }\KeywordTok{merge}\NormalTok{(LatteIndexFrame, BigMacJan2013, }\DataTypeTok{by.x=}\StringTok{"country"}\NormalTok{, }\DataTypeTok{by.y=}\StringTok{"Country"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+La forma de ordenar mejor la union es la siguiente:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{LatteSubset <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{country =} \KeywordTok{as.character}\NormalTok{(LatteIndexFrame}\OperatorTok{$}\NormalTok{country),}
+                          \DataTypeTok{city =} \KeywordTok{as.character}\NormalTok{(LatteIndexFrame}\OperatorTok{$}\NormalTok{city),}
+                          \DataTypeTok{GrandeLatteIndex =}\NormalTok{ LatteIndexFrame}\OperatorTok{$}\NormalTok{price,}
+                          \DataTypeTok{stringsAsFactors =} \OtherTok{FALSE}\NormalTok{)}
+\NormalTok{BigMacSubset <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{country =} \KeywordTok{as.character}\NormalTok{(BigMacJan2013}\OperatorTok{$}\NormalTok{Country),}
+                          \DataTypeTok{BigMacIndex =}\NormalTok{ BigMacJan2013}\OperatorTok{$}\NormalTok{dollar_price,}
+                          \DataTypeTok{stringsAsFactors =} \OtherTok{FALSE}\NormalTok{)}
+\NormalTok{BetterMerge <-}\StringTok{ }\KeywordTok{merge}\NormalTok{(LatteSubset, BigMacSubset)}
+\KeywordTok{str}\NormalTok{(BetterMerge, }\DataTypeTok{vec.len =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    28 obs. of  4 variables:
+##  $ country         : chr  "Argentina" "Australia" ...
+##  $ city            : chr  "Buenos Aires" "Sydney" ...
+##  $ GrandeLatteIndex: num  4.18 4.82 5.65 4.23 3.87 ...
+##  $ BigMacIndex     : num  3.82 4.9 ...
+\end{verbatim}
+
+Para observar cuales son las diferencias que hay entre los dos datasets
+se usa lo siguiente:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{setdiff}\NormalTok{(LatteSubset}\OperatorTok{$}\NormalTok{country, BetterMerge}\OperatorTok{$}\NormalTok{country)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "England"
+\end{verbatim}
+
+Para cambiar el string usamos el siguiente codigo:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{EnglandIndex <-}\StringTok{ }\KeywordTok{which}\NormalTok{(LatteSubset}\OperatorTok{$}\NormalTok{country }\OperatorTok{==}\StringTok{ "England"}\NormalTok{)}
+\NormalTok{LatteSubset}\OperatorTok{$}\NormalTok{country[EnglandIndex] <-}\StringTok{ "Britain"}
+\NormalTok{FinalMerge <-}\StringTok{ }\KeywordTok{merge}\NormalTok{(LatteSubset, BigMacSubset)}
+\KeywordTok{str}\NormalTok{(FinalMerge, }\DataTypeTok{vec.len=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    29 obs. of  4 variables:
+##  $ country         : chr  "Argentina" "Australia" ...
+##  $ city            : chr  "Buenos Aires" "Sydney" ...
+##  $ GrandeLatteIndex: num  4.18 4.82 5.65 4.23 3.81 ...
+##  $ BigMacIndex     : num  3.82 4.9 ...
+\end{verbatim}
+
+\hypertarget{una-pequeuxf1a-introducciuxf3n-a-las-bases-de-datos}{%
+\subsection{Una pequeña introducción a las bases de
+datos}\label{una-pequeuxf1a-introducciuxf3n-a-las-bases-de-datos}}
+
+\hypertarget{bases-de-datos-relacionales-consultas-y-sql}{%
+\subsubsection{Bases de datos relacionales, consultas y
+SQL}\label{bases-de-datos-relacionales-consultas-y-sql}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Las bases de datos son diseñadas: esto involucra decidir que variables
+  son incluidas y como seran oraganizadas.
+\item
+  El diseño de bases de datos son implementados en un entorno especifico
+  de un software, en el cual implique crear y poblar la tabla de datos,
+  proporcionando aceso a los datos.
+\item
+  Correr el Consultador SQL para volver a extraer de la base de datos un
+  dato especifico que se necesite.
+\end{enumerate}
+
+\hypertarget{una-introducciuxf3n-a-el-paquete-sqldf}{%
+\subsubsection{Una Introducción a el paquete
+SQLDF}\label{una-introducciuxf3n-a-el-paquete-sqldf}}
+
+Este paquete no proporciona un consultor SQL forma de utilizarlo es la
+siguiente:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(sqldf)}
+\NormalTok{strangeCars <-}\StringTok{ }\KeywordTok{sqldf}\NormalTok{(}\StringTok{"SELECT city , price, country}
+\StringTok{                      FROM LatteIndexFrame}
+\StringTok{                      WHERE price > 3 AND price < 5"}\NormalTok{) }\CommentTok{# o cambiar Where por GROUP BY}
+\NormalTok{strangeCars}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             city price       country
+## 1    Mexico City  3.22        Mexico
+## 2  San Francisco  3.55 United States
+## 3        Detroit  3.55 United States
+## 4         London  3.81       England
+## 5        Atlanta  3.83 United States
+## 6      Hong Kong  3.87         China
+## 7       Istanbul  3.92        Turkey
+## 8         Lisbon  4.05      Portugal
+## 9        Toronto  4.08 United States
+## 10  Buenos Aires  4.18     Argentina
+## 11     Sao Paolo  4.23        Brazil
+## 12      New York  4.30 United States
+## 13        Dublin  4.38       Ireland
+## 14         Tokyo  4.49         Japan
+## 15    Wellington  4.51   New Zealand
+## 16         Seoul  4.54   South Korea
+## 17        Madrid  4.65         Spain
+## 18       Beijing  4.81         China
+## 19        Sydney  4.82     Australia
+\end{verbatim}
+
+También cuenta con unión entre bases de datos usando el siguiente
+programa:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{query <-}\StringTok{ "SELECT Lsub.country, Lsub.city, Lsub.GrandeLatteIndex, Msub.BigMacIndex}
+\StringTok{FROM LatteSubset AS Lsub INNER JOIN BigMacSubset AS Msub}
+\StringTok{ON Lsub.country = Msub.country"}
+\NormalTok{IndexFrame <-}\StringTok{ }\KeywordTok{sqldf}\NormalTok{(query)}
+\KeywordTok{head}\NormalTok{(IndexFrame)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         country          city GrandeLatteIndex BigMacIndex
+## 1         India     New Delhi             2.79    1.666823
+## 2        Mexico   Mexico City             3.22    2.904603
+## 3 United States San Francisco             3.55    4.367396
+## 4 United States       Detroit             3.55    4.367396
+## 5       Britain        London             3.81    4.248183
+## 6 United States       Atlanta             3.83    4.367396
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(RSQLite)}
+\NormalTok{conn <-}\StringTok{ }\KeywordTok{dbConnect}\NormalTok{(}\KeywordTok{SQLite}\NormalTok{(), }\StringTok{"EconomicIndexDatabase.db"}\NormalTok{)}
+\KeywordTok{dbWriteTable}\NormalTok{(conn, }\StringTok{"GrandeLatteTable"}\NormalTok{, LatteSubset)}
+\KeywordTok{dbWriteTable}\NormalTok{(conn, }\StringTok{"BigMacTable"}\NormalTok{, BigMacSubset)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{dbListTables}\NormalTok{(conn)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "BigMacTable"      "GrandeLatteTable"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{dbListFields}\NormalTok{(conn, }\StringTok{"GRANDELATTETABLE"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "country"          "city"             "GrandeLatteIndex"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{dbListFields}\NormalTok{(conn, }\StringTok{"bigmactable"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "country"     "BigMacIndex"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{dbGetQuery}\NormalTok{(conn, }\StringTok{"SELECT COUNT(*) AS 'GrandeLatteRowCount' FROM GrandeLatteTable"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   GrandeLatteRowCount
+## 1                  29
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{dbGetQuery}\NormalTok{(conn, }\StringTok{"SELECT COUNT(*) AS 'BigMacRowCount' FROM BigMacTable"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   BigMacRowCount
+## 1             57
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{query <-}\StringTok{ "SELECT M.country, M.BigMacIndex FROM BigMacTable AS M}
+\StringTok{WHERE M.country IN (SELECT country FROM GrandeLatteTable)"}
+\NormalTok{BigMacBoth <-}\StringTok{ }\KeywordTok{dbGetQuery}\NormalTok{(conn, query)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{query <-}\StringTok{ "SELECT M.country, M.BigMacIndex FROM BigMacTable AS M}
+\StringTok{WHERE M.country NOT IN (SELECT country FROM GrandeLatteTable)"}
+\NormalTok{BigMacOnly <-}\StringTok{ }\KeywordTok{dbGetQuery}\NormalTok{(conn, query)}
+\KeywordTok{dbDisconnect}\NormalTok{(conn)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{model-de-regresiuxf3n-lineal}{%
+\section{Model de Regresión Lineal}\label{model-de-regresiuxf3n-lineal}}
+
+Los modelos predictivos son modelos matemáticos que nos permiten
+predecir algunas variables de interes desde una o mas variables que se
+cree se relacionan.
+
+\hypertarget{modelando-los-datos-de-witeside}{%
+\subsection{Modelando los datos de
+Witeside}\label{modelando-los-datos-de-witeside}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(MASS)}
+\KeywordTok{summary}\NormalTok{(whiteside)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     Insul         Temp             Gas       
+##  Before:26   Min.   :-0.800   Min.   :1.300  
+##  After :30   1st Qu.: 3.050   1st Qu.:3.500  
+##              Median : 4.900   Median :3.950  
+##              Mean   : 4.875   Mean   :4.071  
+##              3rd Qu.: 7.125   3rd Qu.:4.625  
+##              Max.   :10.200   Max.   :7.200
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\NormalTok{x <-}\StringTok{ }\NormalTok{whiteside}\OperatorTok{$}\NormalTok{Temp}
+\NormalTok{y <-}\StringTok{ }\NormalTok{whiteside}\OperatorTok{$}\NormalTok{Gas}
+\KeywordTok{plot}\NormalTok{(x, y, }\DataTypeTok{xlab =} \StringTok{"Temperatura"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"Gas"}\NormalTok{)}
+\NormalTok{olsModel <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(y }\OperatorTok{~}\StringTok{ }\NormalTok{x)}
+\KeywordTok{abline}\NormalTok{(olsModel, }\DataTypeTok{lty =} \DecValTok{2}\NormalTok{,}\DataTypeTok{lwd =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Exposición_files/figure-latex/unnamed-chunk-28-1.pdf}
+
+\hypertarget{describiendo-lineas-en-el-plano}{%
+\subsubsection{Describiendo lineas en el
+plano}\label{describiendo-lineas-en-el-plano}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{a=}\DecValTok{1}\NormalTok{, }\DataTypeTok{b=}\DecValTok{2}\NormalTok{, }\DataTypeTok{lty=}\DecValTok{2}\NormalTok{, }\DataTypeTok{lwd=}\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Exposición_files/figure-latex/unnamed-chunk-29-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{a=}\DecValTok{0}\NormalTok{,}\DataTypeTok{b=}\DecValTok{0}\NormalTok{, }\DataTypeTok{lty=}\DecValTok{2}\NormalTok{, }\DataTypeTok{lwd=}\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Exposición_files/figure-latex/unnamed-chunk-29-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{v=}\DecValTok{0}\NormalTok{, }\DataTypeTok{lty=}\DecValTok{2}\NormalTok{, }\DataTypeTok{lwd=}\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Exposición_files/figure-latex/unnamed-chunk-29-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{linearModelA <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(Gas }\OperatorTok{~}\StringTok{ }\NormalTok{Temp, }\DataTypeTok{data =}\NormalTok{ whiteside)}
+\KeywordTok{names}\NormalTok{(linearModelA)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "coefficients"  "residuals"     "effects"       "rank"         
+##  [5] "fitted.values" "assign"        "qr"            "df.residual"  
+##  [9] "xlevels"       "call"          "terms"         "model"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(linearModelA, }\DataTypeTok{lty =} \DecValTok{2}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Exposición_files/figure-latex/unnamed-chunk-30-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{linearModelA}\OperatorTok{$}\NormalTok{coefficients}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## (Intercept)        Temp 
+##   5.4861933  -0.2902082
+\end{verbatim}
+
+
+\end{document}
